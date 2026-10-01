@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Gembani</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #0f172a;
+        --panel: #111827;
+        --text: #f8fafc;
+        --muted: #cbd5e1;
+        --accent: #69bfab;
+        --accent-2: #7dd3fc;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(105, 191, 171, 0.28), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(125, 211, 252, 0.2), transparent 30%),
+          linear-gradient(160deg, #020617 0%, #0f172a 55%, #111827 100%);
+        color: var(--text);
+        padding: 24px;
+      }
+
+      main {
+        width: min(720px, 100%);
+        background: rgba(15, 23, 42, 0.82);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: 0 20px 60px rgba(2, 6, 23, 0.45);
+        backdrop-filter: blur(16px);
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+      }
+
+      p {
+        margin: 0 0 24px;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.6;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 160px;
+        padding: 14px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.24);
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        transition: transform 120ms ease, border-color 120ms ease, background-color 120ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(125, 211, 252, 0.55);
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #08111f;
+        border-color: transparent;
+      }
+
+      .note {
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      noscript {
+        display: block;
+        margin-top: 16px;
+      }
+    </style>
+    <script>
+      (function () {
+        var storedLanguage;
+
+        try {
+          storedLanguage = localStorage.getItem('current_language');
+        } catch (e) {
+          storedLanguage = null;
+        }
+
+        var preferredLanguage = storedLanguage === 'fr' || storedLanguage === 'en' ? storedLanguage : null;
+        if (!preferredLanguage) {
+          var browserLanguages = navigator.languages || [navigator.language || 'en'];
+          preferredLanguage = browserLanguages.some(function (language) {
+            return /^fr/i.test(language);
+          }) ? 'fr' : 'en';
+        }
+
+        window.location.replace('/' + preferredLanguage + '/');
+      })();
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1>Gembani</h1>
+      <p>
+        Redirecting you to the best language for your browser. If that is not the right one, choose manually below.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="/en/" data-language="en">Continue in English</a>
+        <a class="button" href="/fr/" data-language="fr">Continuer en fran&ccedil;ais</a>
+      </div>
+      <div class="note">
+        Your choice is remembered locally in the browser so future visits can go straight to the same language.
+      </div>
+      <noscript>
+        JavaScript is disabled. Use the links above to choose English or French.
+      </noscript>
+    </main>
+  </body>
+</html>
