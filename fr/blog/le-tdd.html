@@ -67,6 +67,40 @@
 {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2019-07-01T00:00:00+02:00","datePublished":"2019-07-01T00:00:00+02:00","description":"In the node ecosystem, we haven’t been able to find an article describing the way we prefer to practice TDD internally. Here is an article describing the way we practice TDD using node","headline":"Node TDD","image":"https://www.gembani.com/assets/laptops-bc6e1aac6ffc14eef18ee01b99d78e8156ec970fe72469d370da34f5b29d710a.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.gembani.com/fr/blog/le-tdd.html"},"url":"https://www.gembani.com/fr/blog/le-tdd.html"}</script>
 <!-- End Jekyll SEO tag -->
 
+  
+
+<!-- Suppress the HTTP Referer too, including same-origin counting endpoints. -->
+<meta name="referrer" content="no-referrer">
+<script>
+  function gembaniGoatcounterLoaded() {
+    // Published HTML may be previewed elsewhere: count only the production host.
+    var productionHost = new URL("https://www.gembani.com").hostname.replace(/^www\./, '');
+    if (location.hostname.replace(/^www\./, '') !== productionHost) return;
+
+    // count.js sends location.search separately from path. Remove it as well
+    // as referrals so campaign/contact identifiers never enter GoatCounter.
+    var getData = window.goatcounter.get_data;
+    window.goatcounter.get_data = function (vars) {
+      var data = getData(vars);
+      delete data.q;
+      return data;
+    };
+    function countVisiblePage() {
+      if (document.visibilityState && document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', countVisiblePage);
+      window.goatcounter.count();
+    }
+    document.addEventListener('visibilitychange', countVisiblePage);
+    countVisiblePage();
+  }
+</script>
+<script data-goatcounter="https://gembani.goatcounter.com/count"
+        data-goatcounter-settings="{&quot;no_onload&quot;:true,&quot;no_events&quot;:true,&quot;referrer&quot;:&quot;&quot;,&quot;path&quot;:&quot;/fr/blog/le-tdd.html&quot;}"
+        onload="gembaniGoatcounterLoaded()" referrerpolicy="no-referrer"
+        async src="https://gc.zgo.at/count.v5.js" crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+
+
 
   <!-- CSS Front Template -->
 </head>
