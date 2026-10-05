@@ -1,17 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="#11282b"/>
-  <path d="M0 580H1280M0 620H1280M0 660H1280M0 700H1280M880 580V720M1000 580V720M1120 580V720M1240 580V720" stroke="#244246" stroke-width="2"/>
-  <rect x="64" y="65" width="8" height="42" rx="4" fill="#a6d8c4"/>
-  <g fill="#f6fbf9" font-family="Arial, Helvetica, sans-serif">
-    <text x="94" y="97" font-size="34" font-weight="700" letter-spacing="3">GEMBANI</text>
-    <text x="64" y="218" font-size="34" fill="#a6d8c4">STARTUPS TECH · EARLY STAGE</text>
-    <text x="56" y="513" font-size="300" font-weight="700" fill="#a6d8c4">4</text>
-    <text x="285" y="350" font-size="88" font-weight="700">erreurs</text>
-    <text x="285" y="445" font-size="88" font-weight="700">fréquentes</text>
-    <text x="285" y="510" font-size="38" fill="#c9e3d9">aux débuts d’une startup</text>
-    <text x="64" y="622" font-size="30" font-weight="700">Conférence · Nicholas Stock</text>
-    <text x="64" y="665" font-size="26" fill="#c9e3d9">Station F · En anglais · 27 min</text>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect width="1280" height="720" fill="#11282b"/>
+    <g clip-path="url(#scene)"><image href="conference-poster.jpg" x="-180" y="-140" width="1920" height="1080"/><rect x="32" y="24" width="222" height="54" rx="8" fill="#11282b" fill-opacity=".9"/><text x="52" y="61" font-size="28" font-weight="700" fill="#f6fbf9">GEMBANI</text></g>
+    <rect y="500" width="1280" height="220" fill="#11282b"/>
+    <rect x="24" y="536" width="6" height="105" rx="3" fill="#a6d8c4"/>
+    <g fill="#f6fbf9"><text x="52" y="568" font-size="60" font-weight="700">4 erreurs fréquentes</text><text x="52" y="634" font-size="60" font-weight="700">des startups tech</text><text x="52" y="686" font-size="26" fill="#c9e3d9">Station F · Nicholas Stock · En anglais · 27 min</text></g>
+    <circle cx="1150" cy="610" r="68" fill="#f6fbf9" stroke="#a6d8c4" stroke-width="6"/>
+    <path d="M1133 574L1182 610L1133 646Z" fill="#176052"/>
   </g>
-  <circle cx="1130" cy="360" r="80" fill="#f6fbf9" stroke="#a6d8c4" stroke-width="8"/>
-  <path d="M1110 316L1170 360L1110 404Z" fill="#176052"/>
+  <defs><clipPath id="scene"><rect width="1280" height="500"/></clipPath></defs>
 </svg>

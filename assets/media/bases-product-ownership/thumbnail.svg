@@ -1,18 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="#11282b"/>
-  <path d="M0 580H1280M0 620H1280M0 660H1280M0 700H1280M880 580V720M1000 580V720M1120 580V720M1240 580V720" stroke="#244246" stroke-width="2"/>
-  <rect x="64" y="65" width="8" height="42" rx="4" fill="#a6d8c4"/>
-  <g fill="#f6fbf9" font-family="Arial, Helvetica, sans-serif">
-    <text x="94" y="97" font-size="34" font-weight="700" letter-spacing="3">GEMBANI</text>
-    <text x="64" y="185" font-size="30" fill="#a6d8c4">PRODUIT ET COLLABORATION</text>
-    <text x="64" y="400" font-size="106" font-weight="700" fill="#a6d8c4">PO</text>
-    <text x="370" y="295" font-size="72" font-weight="700">Product</text>
-<text x="370" y="380" font-size="72" font-weight="700">Ownership</text>
-<text x="370" y="465" font-size="72" font-weight="700">Les bases</text>
-
-    <text x="64" y="622" font-size="30" font-weight="700">Présentation · Nicholas Stock</text>
-    <text x="64" y="665" font-size="26" fill="#c9e3d9">En français · 10 min</text>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect width="1280" height="720" fill="#11282b"/>
+    <g clip-path="url(#scene)"><svg x="0" y="0" width="880" height="500" viewBox="0 0 1056 600" preserveAspectRatio="xMidYMid slice"><image href="poster.jpg" width="1280" height="720"/></svg>
+  <rect x="880" y="0" width="400" height="500" fill="#1a3639"/>
+  <svg x="900" y="65" width="360" height="302" viewBox="1110 0 150 126" preserveAspectRatio="xMidYMid slice"><image href="poster.jpg" width="1280" height="720"/></svg>
+  <text x="1080" y="415" text-anchor="middle" font-size="26" font-weight="700" fill="#f6fbf9">Nicholas Stock</text></g>
+    <rect y="500" width="1280" height="220" fill="#11282b"/>
+    <rect x="24" y="536" width="6" height="105" rx="3" fill="#a6d8c4"/>
+    <g fill="#f6fbf9"><text x="52" y="568" font-size="60" font-weight="700">Les bases du</text><text x="52" y="634" font-size="60" font-weight="700">Product Ownership</text><text x="52" y="686" font-size="26" fill="#c9e3d9">Nicholas Stock · En français · 10 min</text></g>
+    <circle cx="1150" cy="610" r="68" fill="#f6fbf9" stroke="#a6d8c4" stroke-width="6"/>
+    <path d="M1133 574L1182 610L1133 646Z" fill="#176052"/>
   </g>
-  <circle cx="1130" cy="360" r="80" fill="#f6fbf9" stroke="#a6d8c4" stroke-width="8"/>
-  <path d="M1110 316L1170 360L1110 404Z" fill="#176052"/>
+  <defs><clipPath id="scene"><rect width="1280" height="500"/></clipPath></defs>
 </svg>
