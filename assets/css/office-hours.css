@@ -1,4 +1,4 @@
-/* Scoped to the French office-hours page. */
+/* Shared by the French office-hours and partner pages. */
 .office-hours-page {
   --oh-ink: #173b35;
   --oh-muted: #53645f;
@@ -116,10 +116,6 @@
 .oh-more-quotes { margin-top: 1.75rem; }
 .oh-more-quotes summary { cursor: pointer; color: var(--oh-green); padding: .75rem 0; font-weight: 600; text-decoration: underline; text-underline-offset: .2em; }
 .oh-quotes-expanded { margin-top: 1.25rem; }
-.oh-cohort { display: grid; grid-template-columns: 1.7fr 1fr; align-items: center; gap: 3rem; margin-top: 1rem; padding: 2.5rem; background: #eaf1e7; border: 1px solid var(--oh-line); border-radius: 1rem; }
-.oh-cohort h2 { font-size: 1.8rem; margin-bottom: 1rem; }
-.oh-cohort p:last-child { margin-bottom: 0; }
-.oh-cohort p a { text-decoration: underline; }
 .office-hours-page .oh-button-secondary { background: transparent; color: var(--oh-green); }
 .office-hours-page .oh-button-secondary:hover { background: #dce8d7; color: #173f34; }
 .oh-booking { margin-top: 3.75rem; }
@@ -132,6 +128,34 @@
 .oh-footer-inner p { margin: 0; color: var(--oh-muted); }
 .oh-footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
 .oh-footer a { text-decoration: underline; }
+.partners-page .oh-hero { grid-template-columns: 1.3fr 1fr; }
+.partners-formats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+.partners-featured { min-width: 0; background: #fff; border: 1px solid var(--oh-line); border-radius: .75rem; overflow: hidden; }
+.partners-featured > a, .partners-video > a { display: block; height: 100%; color: var(--oh-ink); text-decoration: none; }
+.partners-featured > a:hover, .partners-video > a:hover { color: var(--oh-ink); }
+.partners-featured > a:hover h2, .partners-video > a:hover h3 { text-decoration: underline; text-underline-offset: .15em; }
+.partners-featured > a:focus-visible, .partners-video > a:focus-visible { outline-offset: -4px; }
+.partners-featured img, .partners-video img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+.partners-featured-body, .partners-video-body { padding: 1.5rem; }
+.partners-featured-body h2 { font-size: 1.6rem; margin-bottom: 1rem; }
+.partners-featured-body > p:not(.oh-eyebrow) { font-size: .95rem; color: var(--oh-muted); }
+.partners-history { display: flex; flex-wrap: wrap; gap: 1.5rem; list-style: none; padding: 0; margin: 0 0 2rem; }
+.partners-history li { font-size: 1.4rem; font-weight: 650; color: var(--oh-green); }
+.partners-experience { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: start; }
+.partners-case h3 { margin-bottom: 1rem; }
+.partners-case p { color: var(--oh-muted); }
+.partners-case p:last-child { margin-bottom: 0; }
+.partners-videos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.partners-video { min-width: 0; background: #fff; border: 1px solid var(--oh-line); border-radius: .5rem; overflow: hidden; }
+.partners-video h3 { margin-bottom: .75rem; }
+.partners-video-body > p { color: var(--oh-muted); font-size: .95rem; }
+.office-hours-page .partners-video-meta { font-size: .8rem; }
+.partners-video-action { color: var(--oh-green); font-size: .9rem; font-weight: 650; text-decoration: underline; text-underline-offset: .2em; }
+.partners-library-link { margin-top: 1.5rem; }
+.partners-contact { display: grid; grid-template-columns: 1.7fr 1fr; gap: 3rem; align-items: center; margin-bottom: 4rem; padding: 2.5rem; background: #eaf1e7; border: 1px solid var(--oh-line); border-radius: .75rem; }
+.partners-contact h2 { font-size: 2rem; margin-bottom: 1rem; }
+.partners-contact p:last-child { margin-bottom: 0; }
+.partners-contact-action { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
 @media (max-width: 950px) {
   .oh-hero { gap: 2rem; grid-template-columns: 1.3fr 1fr; }
   .oh-profile { padding: 1.25rem; }
@@ -150,9 +174,14 @@
   .oh-topics, .oh-quotes, .oh-steps { grid-template-columns: 1fr; }
   .oh-steps { gap: 1.75rem; }
   .oh-topic, .oh-quote { padding: 1.25rem; }
-  .oh-cohort { grid-template-columns: 1fr; padding: 1.5rem; gap: 1.5rem; }
   .oh-booking { margin-top: 2.5rem; }
   .oh-footer-inner { align-items: flex-start; flex-direction: column; }
+  .partners-page .oh-hero, .partners-formats, .partners-experience, .partners-videos, .partners-contact { grid-template-columns: 1fr; }
+  .partners-experience { gap: 1.5rem; }
+  .partners-contact { padding: 1.5rem; gap: 1.5rem; margin-bottom: 2.5rem; }
+  .partners-featured-body, .partners-video-body { padding: 1.25rem; }
+  .partners-contact-action { align-items: stretch; }
+  .partners-contact-action .oh-text-link { text-align: center; }
 }
 @media (max-width: 359px) {
   .oh-brand { font-size: 1.3rem; }
