@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicons/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png">
+  
+  
+  <!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Présentation du Tech Day | Nick Stock</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Présentation du Tech Day" />
+<meta name="author" content="Nick Stock" />
+<meta property="og:locale" content="fr_FR" />
+<meta name="description" content="Nicholas Stock présente le Tech Day : une journée par sprint où les développeurs ne travaillent pas sur de nouvelles fonctionnalités, mais sur de petites améliorations terminées dans la journée." />
+<meta name="twitter:description" property="og:description" content="Nicholas Stock présente le Tech Day : une journée par sprint où les développeurs ne travaillent pas sur de nouvelles fonctionnalités, mais sur de petites améliorations terminées dans la journée." />
+<link rel="canonical" href="https://www.gembani.com/fr/presentation-tech-day/" />
+<meta property="og:url" content="https://www.gembani.com/fr/presentation-tech-day/" />
+<meta property="og:site_name" content="Nick Stock" />
+<meta property="og:image" content="https://www.gembani.com/assets/media/presentation-tech-day/thumbnail.jpg" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.gembani.com/assets/media/presentation-tech-day/thumbnail.jpg" />
+<meta name="twitter:title" content="Présentation du Tech Day" />
+<meta name="twitter:site" content="@nicholasjstock" />
+<meta name="twitter:creator" content="@Nick Stock" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Nick Stock"},"description":"Nicholas Stock présente le Tech Day : une journée par sprint où les développeurs ne travaillent pas sur de nouvelles fonctionnalités, mais sur de petites améliorations terminées dans la journée.","headline":"Présentation du Tech Day","image":"https://www.gembani.com/assets/media/presentation-tech-day/thumbnail.jpg","url":"https://www.gembani.com/fr/presentation-tech-day/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link rel="stylesheet" href="/assets/css/site.css">
+  
+
+<!-- Suppress the HTTP Referer too, including same-origin counting endpoints. -->
+<meta name="referrer" content="no-referrer">
+<script>
+  function gembaniGoatcounterLoaded() {
+    // Published HTML may be previewed elsewhere: count only the production host.
+    var productionHost = new URL("https://www.gembani.com").hostname.replace(/^www\./, '');
+    if (location.hostname.replace(/^www\./, '') !== productionHost) return;
+
+    // count.js sends location.search separately from path. Remove it as well
+    // as referrals so campaign/contact identifiers never enter GoatCounter.
+    var getData = window.goatcounter.get_data;
+    window.goatcounter.get_data = function (vars) {
+      var data = getData(vars);
+      delete data.q;
+      return data;
+    };
+    function countVisiblePage() {
+      if (document.visibilityState && document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', countVisiblePage);
+      window.goatcounter.count();
+    }
+    document.addEventListener('visibilitychange', countVisiblePage);
+    countVisiblePage();
+  }
+</script>
+<script data-goatcounter="https://gembani.goatcounter.com/count"
+        data-goatcounter-settings="{&quot;no_onload&quot;:true,&quot;no_events&quot;:true,&quot;referrer&quot;:&quot;&quot;,&quot;path&quot;:&quot;/fr/presentation-tech-day/&quot;}"
+        onload="gembaniGoatcounterLoaded()" referrerpolicy="no-referrer"
+        async src="https://gc.zgo.at/count.v5.js" crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+
+
+</head>
+<body class="site">
+    <a class="oh-skip" href="#content">Aller à la vidéo</a>
+
+<header class="oh-header">
+  <div class="oh-container oh-header-inner">
+    <a class="oh-brand" href="/fr/">Nick Stock<span>CTO &amp; leadership technique · Paris</span></a>
+    <nav class="oh-nav" aria-label="Navigation principale">
+      
+        
+        <a class="oh-nav-section" href="/fr/travailler-avec-moi/">Accompagnements</a>
+      
+        
+        <a class="oh-nav-section" href="/fr/office_hours.html">Office hours</a>
+      
+        
+        <a class="oh-nav-section" href="/fr/partenaires/">Communautés</a>
+      
+        
+        <a class="oh-nav-section" href="/fr/videos/">Vidéos</a>
+      
+      
+      
+      <a class="oh-button oh-button-small" href="/fr/office_hours.html#reserver">Réserver une office hour</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+<main id="content" tabindex="-1">
+  <article class="oh-container oh-article">
+    <p class="oh-eyebrow">Présentation · En français · 21 min 43 s</p>
+    <h1>Présentation du Tech Day</h1>
+    <p class="oh-lead">Une journée par sprint sans nouvelles fonctionnalités : refactoring, tests, automatisation et outils de débug, avec de petites améliorations mergées le jour même.</p>
+    <figure class="oh-player">
+  <div class="oh-player-frame">
+    <button type="button" data-youtube-id="toSu30h38MY" data-video-title="Présentation du Tech Day (en français)"
+            aria-label="Lire la vidéo : Présentation du Tech Day (en français)" aria-describedby="video-player-help">
+      <img src="/assets/media/presentation-tech-day/thumbnail.jpg" width="1280" height="720" alt="Présentation du Tech Day — Nick Stock">
+    </button>
+  </div>
+  <figcaption id="video-player-help">Cliquez sur la miniature pour charger le lecteur YouTube. Vidéo en français. Les sous-titres disponibles s’activent dans les paramètres du lecteur.</figcaption>
+</figure>
+<noscript><p>Pour lire la vidéo, <a href="https://www.youtube.com/watch?v=toSu30h38MY">ouvrez-la sur YouTube</a>.</p></noscript>
+
+    <h2>Ce que présente la vidéo</h2>
+<ul>
+  <li>Une journée par sprint consacrée à l’amélioration continue, pendant laquelle les développeurs ne travaillent pas sur de nouvelles fonctionnalités.</li>
+  <li>Le travail de la journée : refactoring du code existant, création et amélioration des tests, automatisation et outils de débug.</li>
+  <li>La règle d’or : de petites améliorations, terminées à la fin du Tech Day. Chaque développeur doit pouvoir merger son commit le soir même.</li>
+  <li>Le déroulé : un standup où les développeurs proposent leurs idées, le choix des problèmes prioritaires et des binômes, la résolution, puis une rétrospective et un email de conclusion.</li>
+</ul>
+<p>La présentation se termine par les questions du public.</p>
+<p>J’anime cette journée avec des équipes clientes. En 2021, je l’ai organisée chaque mois avec Paris&amp;Co, après mes office hours avec leurs startups incubées : une journée pour réfléchir et coder ensemble, autour du refactoring et du craftsmanship.</p>
+
+    <div class="oh-actions">
+      <a href="https://www.youtube.com/watch?v=toSu30h38MY">Regarder sur YouTube <span aria-hidden="true">↗</span></a>
+      <a href="/fr/videos/">Voir toutes les vidéos</a>
+    </div>
+    <div class="oh-note" style="margin-top: 2.5rem;">
+      <p>Ces sujets vous parlent pour votre équipe ou votre communauté ? <a href="/fr/office_hours.html">Réservez une office hour</a> ou <a href="/fr/partenaires/">organisons une intervention</a>.</p>
+    </div>
+  </article>
+</main>
+<script src="/assets/js/video-player.js" defer></script>
+<footer class="oh-footer">
+  <div class="oh-container oh-footer-inner">
+    
+    <p>Nick Stock <span aria-hidden="true">·</span> CTO &amp; leadership technique <span aria-hidden="true">·</span> Paris</p>
+    
+    <div class="oh-footer-links">
+      
+      <a href="/fr/simple-retail-planner-demo/">Démo du planning</a>
+      
+      <a href="mailto:nick@gembani.com">nick@gembani.com</a>
+      <a href="https://www.linkedin.com/in/nicholasstock/">LinkedIn <span aria-hidden="true">↗</span></a>
+    </div>
+    <p class="oh-footer-legacy">
+      
+      <a href="/legacy/fr/">Archive du site Gembani Consulting (avant liquidation)</a>
+      
+    </p>
+  </div>
+</footer>
+</body>
+</html>

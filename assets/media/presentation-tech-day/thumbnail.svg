@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect width="1280" height="720" fill="#11282b"/>
+    <g clip-path="url(#scene)"><svg x="0" y="0" width="880" height="500" viewBox="300 0 980 557" preserveAspectRatio="xMidYMid slice"><image href="poster.jpg" width="1280" height="720"/></svg>
+  <rect x="880" y="0" width="400" height="500" fill="#1a3639"/>
+  <svg x="900" y="55" width="360" height="331" viewBox="60 425 150 138" preserveAspectRatio="xMidYMid slice"><image href="poster.jpg" width="1280" height="720"/></svg>
+  <text x="1080" y="434" text-anchor="middle" font-size="26" font-weight="700" fill="#f6fbf9">Nicholas Stock</text></g>
+    <rect y="500" width="1280" height="220" fill="#11282b"/>
+    <rect x="24" y="536" width="6" height="105" rx="3" fill="#a6d8c4"/>
+    <g fill="#f6fbf9"><text x="52" y="568" font-size="60" font-weight="700">Présentation</text><text x="52" y="634" font-size="60" font-weight="700">du Tech Day</text><text x="52" y="686" font-size="26" fill="#c9e3d9">Nicholas Stock · En français · 22 min</text></g>
+    <circle cx="1150" cy="610" r="68" fill="#f6fbf9" stroke="#a6d8c4" stroke-width="6"/>
+    <path d="M1133 574L1182 610L1133 646Z" fill="#176052"/>
+  </g>
+  <defs><clipPath id="scene"><rect width="1280" height="500"/></clipPath></defs>
+</svg>
