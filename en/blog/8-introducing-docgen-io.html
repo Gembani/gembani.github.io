@@ -1,9 +1,134 @@
 <!DOCTYPE html>
-<html lang="fr">
-<meta charset="utf-8">
-<meta name="robots" content="noindex">
-<title>Page déplacée</title>
-<link rel="canonical" href="/legacy/en/blog/8-introducing-docgen-io.html">
-<meta http-equiv="refresh" content="0; url=/legacy/en/blog/8-introducing-docgen-io.html">
-<p>Cette page a été déplacée : <a href="/legacy/en/blog/8-introducing-docgen-io.html">/legacy/en/blog/8-introducing-docgen-io.html</a>.</p>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicons/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png">
+  
+  <link rel="alternate" hreflang="fr" href="https://www.gembani.com/fr/blog/introducing-docgen-io-fr.html">
+  
+  <link rel="alternate" hreflang="en" href="https://www.gembani.com/en/blog/8-introducing-docgen-io.html">
+  
+  
+  <!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Introducing docgen.io - Pdf generation as a service | Nick Stock</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Introducing docgen.io - Pdf generation as a service" />
+<meta name="author" content="Nick Stock" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="PDF generation as a service using AWS lambda" />
+<meta name="twitter:description" property="og:description" content="PDF generation as a service using AWS lambda" />
+<link rel="canonical" href="https://www.gembani.com/en/blog/8-introducing-docgen-io.html" />
+<meta property="og:url" content="https://www.gembani.com/en/blog/8-introducing-docgen-io.html" />
+<meta property="og:site_name" content="Nick Stock" />
+<meta property="og:image" content="https://www.gembani.com/assets/media/conference-4-erreurs-startups/conference-thumbnail.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-05-12T10:00:00+00:00" />
+<meta property="article:modified_time" content="2017-05-12T10:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.gembani.com/assets/media/conference-4-erreurs-startups/conference-thumbnail.jpg" />
+<meta name="twitter:title" content="Introducing docgen.io - Pdf generation as a service" />
+<meta name="twitter:site" content="@nicholasjstock" />
+<meta name="twitter:creator" content="@Nick Stock" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nick Stock"},"dateModified":"2017-05-12T10:00:00+00:00","datePublished":"2017-05-12T10:00:00+00:00","description":"PDF generation as a service using AWS lambda","headline":"Introducing docgen.io - Pdf generation as a service","image":"https://www.gembani.com/assets/media/conference-4-erreurs-startups/conference-thumbnail.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.gembani.com/en/blog/8-introducing-docgen-io.html"},"url":"https://www.gembani.com/en/blog/8-introducing-docgen-io.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link rel="stylesheet" href="/assets/css/site.css">
+  
+
+<!-- Suppress the HTTP Referer too, including same-origin counting endpoints. -->
+<meta name="referrer" content="no-referrer">
+<script>
+  function gembaniGoatcounterLoaded() {
+    // Published HTML may be previewed elsewhere: count only the production host.
+    var productionHost = new URL("https://www.gembani.com").hostname.replace(/^www\./, '');
+    if (location.hostname.replace(/^www\./, '') !== productionHost) return;
+
+    // count.js sends location.search separately from path. Remove it as well
+    // as referrals so campaign/contact identifiers never enter GoatCounter.
+    var getData = window.goatcounter.get_data;
+    window.goatcounter.get_data = function (vars) {
+      var data = getData(vars);
+      delete data.q;
+      return data;
+    };
+    function countVisiblePage() {
+      if (document.visibilityState && document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', countVisiblePage);
+      window.goatcounter.count();
+    }
+    document.addEventListener('visibilitychange', countVisiblePage);
+    countVisiblePage();
+  }
+</script>
+<script data-goatcounter="https://gembani.goatcounter.com/count"
+        data-goatcounter-settings="{&quot;no_onload&quot;:true,&quot;no_events&quot;:true,&quot;referrer&quot;:&quot;&quot;,&quot;path&quot;:&quot;/en/blog/8-introducing-docgen-io.html&quot;}"
+        onload="gembaniGoatcounterLoaded()" referrerpolicy="no-referrer"
+        async src="https://gc.zgo.at/count.v5.js" crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+
+
+</head>
+<body class="site">
+    <a class="oh-skip" href="#content">Skip to content</a>
+<header class="oh-header">
+  <div class="oh-container oh-header-inner">
+    <a class="oh-brand" href="/en/">Nick Stock<span>CTO &amp; technical leadership · Paris</span></a>
+    <nav class="oh-nav" aria-label="Main">
+      <a class="oh-nav-section" href="/en/#work">Working together</a>
+      <a class="oh-nav-section" href="/fr/videos/" lang="fr">Talks</a>
+      <a class="oh-nav-section" href="/en/blog/">Blog</a>
+      <a class="oh-lang" href="/fr/blog/introducing-docgen-io-fr.html" lang="fr" hreflang="fr">Français</a>
+      <a class="oh-button oh-button-small" href="https://calendly.com/nick-stock/office-hour">Book an office hour <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="content" tabindex="-1">
+  <article class="oh-container oh-article oh-post">
+    <p class="oh-eyebrow"><a href="/en/blog/">Blog</a> · <time datetime="2017-05-12T10:00:00+00:00">12 May 2017</time></p>
+    <h1>Introducing docgen.io - Pdf generation as a service</h1>
+    <div class="oh-post-body">
+      <p>Countless solutions exist that attempt to turn html/css into generated pdfs. I’ve spent countless hours trying to make the generated documents look just right. Occasionally the output from these tools have even been different from machine to machine.</p>
+
+<p>I’ve taken an alternative approach. Instead of using html/css I use the Tex document production system (click <a href="https://en.wikipedia.org/wiki/TeX">here</a> for more information about tex).</p>
+
+<p>Sprinkle in some mustache templating, and you have yourself a system who can automate the generation of any type of pdf on the fly: newsletters, invoices, bills, complex contracts…. watermarked ebooks - the possibilities are endless.</p>
+
+<p>Check out the website <a href="https://www.docgen.io">https://www.docgen.io/</a></p>
+
+<p>Api documentation <a href="https://www.docgen.io/docs">https://www.docgen.io/</a></p>
+
+    </div>
+    <div class="oh-actions oh-post-actions">
+      <a href="/fr/blog/introducing-docgen-io-fr.html" lang="fr" hreflang="fr">Lire cet article en français</a>
+      <a href="/en/blog/">All articles</a>
+    </div>
+    <div class="oh-note" style="margin-top: 2.5rem;">
+      <p>Want to talk about your team? <a href="https://calendly.com/nick-stock/office-hour">Book a free office hour</a> or write to <a href="mailto:nick@gembani.com">nick@gembani.com</a>.</p>
+    </div>
+  </article>
+</main>
+<footer class="oh-footer">
+  <div class="oh-container oh-footer-inner">
+    
+    <p>Nick Stock <span aria-hidden="true">·</span> CTO &amp; technical leadership <span aria-hidden="true">·</span> Paris</p>
+    
+    <div class="oh-footer-links">
+      
+      <a href="mailto:nick@gembani.com">nick@gembani.com</a>
+      <a href="https://www.linkedin.com/in/nicholasstock/">LinkedIn <span aria-hidden="true">↗</span></a>
+    </div>
+    <p class="oh-footer-legacy">
+      
+      <a href="/legacy/en/">Archive of the Gembani Consulting site (before liquidation)</a>
+      
+    </p>
+  </div>
+</footer>
+</body>
 </html>

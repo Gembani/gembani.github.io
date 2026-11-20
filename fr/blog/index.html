@@ -1,9 +1,190 @@
 <!DOCTYPE html>
-<html lang="fr">
-<meta charset="utf-8">
-<meta name="robots" content="noindex">
-<title>Page déplacée</title>
-<link rel="canonical" href="/legacy/fr/blog/">
-<meta http-equiv="refresh" content="0; url=/legacy/fr/blog/">
-<p>Cette page a été déplacée : <a href="/legacy/fr/blog/">/legacy/fr/blog/</a>.</p>
+<html lang="fr"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicons/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png">
+  
+  <link rel="alternate" hreflang="fr" href="https://www.gembani.com/fr/blog/">
+  
+  <link rel="alternate" hreflang="en" href="https://www.gembani.com/en/blog/">
+  
+  
+  <!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Blog — articles | Nick Stock</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Blog — articles" />
+<meta name="author" content="Nick Stock" />
+<meta property="og:locale" content="fr" />
+<meta name="description" content="Articles de Nick Stock sur les tests automatisés, le TDD, l’agilité et la relation avec l’équipe technique." />
+<meta name="twitter:description" property="og:description" content="Articles de Nick Stock sur les tests automatisés, le TDD, l’agilité et la relation avec l’équipe technique." />
+<link rel="canonical" href="https://www.gembani.com/fr/blog/" />
+<meta property="og:url" content="https://www.gembani.com/fr/blog/" />
+<meta property="og:site_name" content="Nick Stock" />
+<meta property="og:image" content="https://www.gembani.com/assets/media/conference-4-erreurs-startups/conference-thumbnail.jpg" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.gembani.com/assets/media/conference-4-erreurs-startups/conference-thumbnail.jpg" />
+<meta name="twitter:title" content="Blog — articles" />
+<meta name="twitter:site" content="@nicholasjstock" />
+<meta name="twitter:creator" content="@Nick Stock" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Nick Stock"},"description":"Articles de Nick Stock sur les tests automatisés, le TDD, l’agilité et la relation avec l’équipe technique.","headline":"Blog — articles","image":"https://www.gembani.com/assets/media/conference-4-erreurs-startups/conference-thumbnail.jpg","url":"https://www.gembani.com/fr/blog/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link rel="stylesheet" href="/assets/css/site.css">
+  
+
+<!-- Suppress the HTTP Referer too, including same-origin counting endpoints. -->
+<meta name="referrer" content="no-referrer">
+<script>
+  function gembaniGoatcounterLoaded() {
+    // Published HTML may be previewed elsewhere: count only the production host.
+    var productionHost = new URL("https://www.gembani.com").hostname.replace(/^www\./, '');
+    if (location.hostname.replace(/^www\./, '') !== productionHost) return;
+
+    // count.js sends location.search separately from path. Remove it as well
+    // as referrals so campaign/contact identifiers never enter GoatCounter.
+    var getData = window.goatcounter.get_data;
+    window.goatcounter.get_data = function (vars) {
+      var data = getData(vars);
+      delete data.q;
+      return data;
+    };
+    function countVisiblePage() {
+      if (document.visibilityState && document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', countVisiblePage);
+      window.goatcounter.count();
+    }
+    document.addEventListener('visibilitychange', countVisiblePage);
+    countVisiblePage();
+  }
+</script>
+<script data-goatcounter="https://gembani.goatcounter.com/count"
+        data-goatcounter-settings="{&quot;no_onload&quot;:true,&quot;no_events&quot;:true,&quot;referrer&quot;:&quot;&quot;,&quot;path&quot;:&quot;/fr/blog/&quot;}"
+        onload="gembaniGoatcounterLoaded()" referrerpolicy="no-referrer"
+        async src="https://gc.zgo.at/count.v5.js" crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+
+
+</head>
+<body class="site">
+    <a class="oh-skip" href="#content">Aller aux articles</a>
+
+<header class="oh-header">
+  <div class="oh-container oh-header-inner">
+    <a class="oh-brand" href="/fr/">Nick Stock<span>CTO &amp; leadership technique · Paris</span></a>
+    <nav class="oh-nav" aria-label="Navigation principale">
+      
+        
+        <a class="oh-nav-section" href="/fr/travailler-avec-moi/">Accompagnements</a>
+      
+        
+        <a class="oh-nav-section" href="/fr/office_hours.html">Office hours</a>
+      
+        
+        <a class="oh-nav-section" href="/fr/partenaires/">Communautés</a>
+      
+        
+        <a class="oh-nav-section" href="/fr/videos/">Vidéos</a>
+      
+        
+        <a class="oh-nav-section" href="/fr/blog/" aria-current="page">Blog</a>
+      
+      <a class="oh-lang" href="/en/blog/" lang="en" hreflang="en">English</a>
+      
+      <a class="oh-button oh-button-small" href="/fr/office_hours.html#reserver">Réserver une office hour</a>
+      
+    </nav>
+  </div>
+</header>
+
+<main id="content" tabindex="-1">
+  <div class="oh-container">
+    <section class="oh-page-hero" aria-labelledby="blog-title">
+      <p class="oh-eyebrow">Blog · Nick Stock</p>
+      <h1 id="blog-title">Articles</h1>
+      <p class="oh-lead">Tests automatisés, TDD, agilité et relation avec l’équipe technique : les articles publiés sur le blog de Gembani entre 2016 et 2019.</p>
+      <p>D’autres articles sont disponibles <a href="/en/blog/" lang="en" hreflang="en">en anglais</a>.</p>
+    </section>
+    <section class="oh-section" aria-label="Tous les articles">
+      <div class="oh-cards">
+  <article class="oh-media-card oh-post-card">
+    <a href="/fr/blog/le-tdd.html">
+      <div class="oh-media-card-body">
+        <p class="oh-card-meta"><time datetime="2019-07-01T00:00:00+00:00">juillet 2019</time> · <span lang="en">also in English</span></p>
+        <h2 lang="en">Node TDD</h2>
+        <p lang="en">In the node ecosystem, we haven't been able to find an article describing the way we prefer to practice TDD internally. Here is an article describing the way we practice TDD using...</p>
+        <span class="partners-video-action">Lire l’article</span>
+      </div>
+    </a>
+  </article>
+  <article class="oh-media-card oh-post-card">
+    <a href="/fr/blog/3-pistes-pour-garder-votre-cto.html">
+      <div class="oh-media-card-body">
+        <p class="oh-card-meta"><time datetime="2019-05-28T10:26:34+00:00">mai 2019</time></p>
+        <h2>Vous avez trouvé votre CTO, voici 3 pistes pour le garder !</h2>
+        <p>Nick Stock, fondateur de Gembani * et intervenant régulier auprès des CEO et CTO des startups incubées chez Paris&Co, vous propose 3 pistes pour garder votre agilité, fluidifier votre relation au quotidien...</p>
+        <span class="partners-video-action">Lire l’article</span>
+      </div>
+    </a>
+  </article>
+  <article class="oh-media-card oh-post-card">
+    <a href="/fr/blog/introducing-docgen-io-fr.html">
+      <div class="oh-media-card-body">
+        <p class="oh-card-meta"><time datetime="2019-05-24T09:00:00+00:00">mai 2019</time> · <span lang="en">also in English</span></p>
+        <h2>Présentation de docgen.io - La génération de pdf en tant que service</h2>
+        <p>La génération de pdf en tant que service en utilisant les rudiments d'AWS</p>
+        <span class="partners-video-action">Lire l’article</span>
+      </div>
+    </a>
+  </article>
+  <article class="oh-media-card oh-post-card">
+    <a href="/fr/blog/8-signs-your-agile-isnt-agile-fr.html">
+      <div class="oh-media-card-body">
+        <p class="oh-card-meta"><time datetime="2019-05-23T10:26:34+00:00">mai 2019</time> · <span lang="en">also in English</span></p>
+        <h2>8 signes que votre agile n’est pas agile</h2>
+        <p>En 2001, année de la rédaction du manifeste Agile, des années d’essais et d’erreurs avaient conduit les ingénieurs à se rendre compte que les pratiques traditionnelles d’ingénierie ne pouvaient plus être utilisées...</p>
+        <span class="partners-video-action">Lire l’article</span>
+      </div>
+    </a>
+  </article>
+  <article class="oh-media-card oh-post-card">
+    <a href="/fr/blog/la-pertinence-du-test-automatise.html">
+      <div class="oh-media-card-body">
+        <p class="oh-card-meta"><time datetime="2016-11-29T13:26:34+00:00">novembre 2016</time></p>
+        <h2>LA PERTINENCE DU TEST AUTOMATISÉ</h2>
+        <p>La conception de logiciel commence toujours par une première fonctionnalité, appelons la « F1 ».Quand F1 est finalisée, elle est soumise aux Bêta-Testers et/ou au CEO qui vont la tester pour vérifier...</p>
+        <span class="partners-video-action">Lire l’article</span>
+      </div>
+    </a>
+  </article>
+</div>
+
+    </section>
+  </div>
+</main>
+<footer class="oh-footer">
+  <div class="oh-container oh-footer-inner">
+    
+    <p>Nick Stock <span aria-hidden="true">·</span> CTO &amp; leadership technique <span aria-hidden="true">·</span> Paris</p>
+    
+    <div class="oh-footer-links">
+      
+      <a href="/fr/simple-retail-planner-demo/">Démo du planning</a>
+      
+      <a href="mailto:nick@gembani.com">nick@gembani.com</a>
+      <a href="https://www.linkedin.com/in/nicholasstock/">LinkedIn <span aria-hidden="true">↗</span></a>
+    </div>
+    <p class="oh-footer-legacy">
+      
+      <a href="/legacy/fr/">Archive du site Gembani Consulting (avant liquidation)</a>
+      
+    </p>
+  </div>
+</footer>
+</body>
 </html>

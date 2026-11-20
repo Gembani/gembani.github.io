@@ -1,9 +1,162 @@
 <!DOCTYPE html>
-<html lang="fr">
-<meta charset="utf-8">
-<meta name="robots" content="noindex">
-<title>Page déplacée</title>
-<link rel="canonical" href="/legacy/en/blog/">
-<meta http-equiv="refresh" content="0; url=/legacy/en/blog/">
-<p>Cette page a été déplacée : <a href="/legacy/en/blog/">/legacy/en/blog/</a>.</p>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicons/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png">
+  
+  <link rel="alternate" hreflang="fr" href="https://www.gembani.com/fr/blog/">
+  
+  <link rel="alternate" hreflang="en" href="https://www.gembani.com/en/blog/">
+  
+  
+  <!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Blog — articles | Nick Stock</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Blog — articles" />
+<meta name="author" content="Nick Stock" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Articles by Nick Stock on end-to-end testing, TDD, agile teams and PDF generation." />
+<meta name="twitter:description" property="og:description" content="Articles by Nick Stock on end-to-end testing, TDD, agile teams and PDF generation." />
+<link rel="canonical" href="https://www.gembani.com/en/blog/" />
+<meta property="og:url" content="https://www.gembani.com/en/blog/" />
+<meta property="og:site_name" content="Nick Stock" />
+<meta property="og:image" content="https://www.gembani.com/assets/media/conference-4-erreurs-startups/conference-thumbnail.jpg" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.gembani.com/assets/media/conference-4-erreurs-startups/conference-thumbnail.jpg" />
+<meta name="twitter:title" content="Blog — articles" />
+<meta name="twitter:site" content="@nicholasjstock" />
+<meta name="twitter:creator" content="@Nick Stock" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Nick Stock"},"description":"Articles by Nick Stock on end-to-end testing, TDD, agile teams and PDF generation.","headline":"Blog — articles","image":"https://www.gembani.com/assets/media/conference-4-erreurs-startups/conference-thumbnail.jpg","url":"https://www.gembani.com/en/blog/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link rel="stylesheet" href="/assets/css/site.css">
+  
+
+<!-- Suppress the HTTP Referer too, including same-origin counting endpoints. -->
+<meta name="referrer" content="no-referrer">
+<script>
+  function gembaniGoatcounterLoaded() {
+    // Published HTML may be previewed elsewhere: count only the production host.
+    var productionHost = new URL("https://www.gembani.com").hostname.replace(/^www\./, '');
+    if (location.hostname.replace(/^www\./, '') !== productionHost) return;
+
+    // count.js sends location.search separately from path. Remove it as well
+    // as referrals so campaign/contact identifiers never enter GoatCounter.
+    var getData = window.goatcounter.get_data;
+    window.goatcounter.get_data = function (vars) {
+      var data = getData(vars);
+      delete data.q;
+      return data;
+    };
+    function countVisiblePage() {
+      if (document.visibilityState && document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', countVisiblePage);
+      window.goatcounter.count();
+    }
+    document.addEventListener('visibilitychange', countVisiblePage);
+    countVisiblePage();
+  }
+</script>
+<script data-goatcounter="https://gembani.goatcounter.com/count"
+        data-goatcounter-settings="{&quot;no_onload&quot;:true,&quot;no_events&quot;:true,&quot;referrer&quot;:&quot;&quot;,&quot;path&quot;:&quot;/en/blog/&quot;}"
+        onload="gembaniGoatcounterLoaded()" referrerpolicy="no-referrer"
+        async src="https://gc.zgo.at/count.v5.js" crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+
+
+</head>
+<body class="site">
+    <a class="oh-skip" href="#content">Skip to content</a>
+<header class="oh-header">
+  <div class="oh-container oh-header-inner">
+    <a class="oh-brand" href="/en/">Nick Stock<span>CTO &amp; technical leadership · Paris</span></a>
+    <nav class="oh-nav" aria-label="Main">
+      <a class="oh-nav-section" href="/en/#work">Working together</a>
+      <a class="oh-nav-section" href="/fr/videos/" lang="fr">Talks</a>
+      <a class="oh-nav-section" href="/en/blog/" aria-current="page">Blog</a>
+      <a class="oh-lang" href="/fr/blog/" lang="fr" hreflang="fr">Français</a>
+      <a class="oh-button oh-button-small" href="https://calendly.com/nick-stock/office-hour">Book an office hour <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="content" tabindex="-1">
+  <div class="oh-container">
+    <section class="oh-page-hero" aria-labelledby="blog-title">
+      <p class="oh-eyebrow">Blog · Nick Stock</p>
+      <h1 id="blog-title">Articles</h1>
+      <p class="oh-lead">End-to-end testing, TDD and agile teams: the articles published on the Gembani blog between 2016 and 2019.</p>
+      <p>More articles are available <a href="/fr/blog/" lang="fr" hreflang="fr">in French</a>.</p>
+    </section>
+    <section class="oh-section" aria-label="All articles">
+      <div class="oh-cards">
+  <article class="oh-media-card oh-post-card">
+    <a href="/en/blog/node-api-tdd.html">
+      <div class="oh-media-card-body">
+        <p class="oh-card-meta"><time datetime="2019-06-19T00:00:00+00:00">June 2019</time> · <span lang="fr">aussi en français</span></p>
+        <h2>Node TDD</h2>
+        <p>In the node ecosystem, we haven't been able to find an article describing the way we prefer to practice TDD internally. Here is an article describing the way we practice TDD using...</p>
+        <span class="partners-video-action">Read the article</span>
+      </div>
+    </a>
+  </article>
+  <article class="oh-media-card oh-post-card">
+    <a href="/en/blog/8-signs-your-agile-isnt-agile.html">
+      <div class="oh-media-card-body">
+        <p class="oh-card-meta"><time datetime="2017-07-19T10:26:34+00:00">July 2017</time> · <span lang="fr">aussi en français</span></p>
+        <h2>8 signs your agile isn't agile</h2>
+        <p>In 2001, when the Agile manifesto was written, years of trial and error had led engineers to realize that old school engineering practices could not be used to build software efficiently. With...</p>
+        <span class="partners-video-action">Read the article</span>
+      </div>
+    </a>
+  </article>
+  <article class="oh-media-card oh-post-card">
+    <a href="/en/blog/8-introducing-docgen-io.html">
+      <div class="oh-media-card-body">
+        <p class="oh-card-meta"><time datetime="2017-05-12T10:00:00+00:00">May 2017</time> · <span lang="fr">aussi en français</span></p>
+        <h2>Introducing docgen.io - Pdf generation as a service</h2>
+        <p>PDF generation as a service using AWS lambda</p>
+        <span class="partners-video-action">Read the article</span>
+      </div>
+    </a>
+  </article>
+  <article class="oh-media-card oh-post-card">
+    <a href="/en/blog/symfony3-end-to-end-testing-with-mink-and-selenium.html">
+      <div class="oh-media-card-body">
+        <p class="oh-card-meta"><time datetime="2016-09-30T13:26:34+00:00">September 2016</time></p>
+        <h2>Symfony 3 end to end testing with mink and selenium</h2>
+        <p>Here I will show you how to start acceptance testing symfony applications with circleCI, mink and selenium</p>
+        <span class="partners-video-action">Read the article</span>
+      </div>
+    </a>
+  </article>
+</div>
+
+    </section>
+  </div>
+</main>
+<footer class="oh-footer">
+  <div class="oh-container oh-footer-inner">
+    
+    <p>Nick Stock <span aria-hidden="true">·</span> CTO &amp; technical leadership <span aria-hidden="true">·</span> Paris</p>
+    
+    <div class="oh-footer-links">
+      
+      <a href="mailto:nick@gembani.com">nick@gembani.com</a>
+      <a href="https://www.linkedin.com/in/nicholasstock/">LinkedIn <span aria-hidden="true">↗</span></a>
+    </div>
+    <p class="oh-footer-legacy">
+      
+      <a href="/legacy/en/">Archive of the Gembani Consulting site (before liquidation)</a>
+      
+    </p>
+  </div>
+</footer>
+</body>
 </html>

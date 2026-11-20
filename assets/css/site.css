@@ -240,6 +240,30 @@ body.site { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI
 .oh-player video { display: block; width: 100%; height: auto; background: #101519; border-radius: .5rem; }
 .oh-player figcaption, .oh-small { font-size: .85rem; color: var(--oh-muted); }
 .oh-player figcaption { margin-top: .75rem; }
+/* Blog posts: archived articles rendered from Markdown. */
+.oh-post .oh-eyebrow a { color: inherit; }
+.oh-post-body { margin-top: 2rem; overflow-wrap: break-word; }
+.oh-post-body h1, .oh-post-body h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; }
+.oh-post-body h3 { font-size: 1.25rem; margin: 2.25rem 0 .85rem; }
+.oh-post-body h4 { font-size: 1.05rem; margin: 1.75rem 0 .75rem; }
+.oh-post-body > :first-child { margin-top: 0; }
+.oh-post-body img { display: block; height: auto; margin: 1.5rem auto; border: 1px solid var(--oh-line); border-radius: .375rem; }
+.oh-post-body blockquote { margin: 1.5rem 0; padding: .75rem 1.25rem; border-left: 4px solid var(--oh-green); background: #eef3ec; color: var(--oh-ink); }
+.oh-post-body blockquote p:last-child { margin-bottom: 0; }
+.oh-post-body table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 1.5rem 0; }
+.oh-post-body th, .oh-post-body td { padding: .4rem .75rem; border: 1px solid var(--oh-line); }
+.oh-post-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: .88em; }
+.oh-post-body :not(pre) > code { padding: .1em .35em; background: #eceee6; border-radius: .25rem; overflow-wrap: anywhere; }
+.oh-post-body pre { margin: 1.25rem 0 1.5rem; padding: 1rem 1.25rem; overflow-x: auto; background: #172421; color: #e6ece8; border-radius: .5rem; font-size: .85rem; line-height: 1.55; tab-size: 2; }
+.oh-post-body pre code { font-size: inherit; background: none; padding: 0; white-space: pre; }
+.oh-post-body .highlight .c, .oh-post-body .highlight .c1, .oh-post-body .highlight .cm, .oh-post-body .highlight .cs, .oh-post-body .highlight .cd { color: #8fa39b; font-style: italic; }
+.oh-post-body .highlight .k, .oh-post-body .highlight .kd, .oh-post-body .highlight .kn, .oh-post-body .highlight .kr, .oh-post-body .highlight .kc, .oh-post-body .highlight .kt, .oh-post-body .highlight .nt { color: #f2b880; }
+.oh-post-body .highlight .s, .oh-post-body .highlight .s1, .oh-post-body .highlight .s2, .oh-post-body .highlight .sb, .oh-post-body .highlight .sd, .oh-post-body .highlight .si, .oh-post-body .highlight .sr, .oh-post-body .highlight .na { color: #a9dc9b; }
+.oh-post-body .highlight .m, .oh-post-body .highlight .mi, .oh-post-body .highlight .mf, .oh-post-body .highlight .nb, .oh-post-body .highlight .bp { color: #8cc8e8; }
+.oh-post-body .highlight .nc, .oh-post-body .highlight .nf, .oh-post-body .highlight .fm { color: #f0d98c; }
+.oh-post-body .highlight .gd { color: #f4a3a3; }
+.oh-post-body .highlight .gi { color: #a9dc9b; }
+.oh-post-actions { margin-top: 2.5rem; }
 .oh-footer-legacy { flex-basis: 100%; font-size: .8rem; }
 .oh-footer-legacy a { color: var(--oh-muted); }
 @media (max-width: 950px) {
@@ -252,4 +276,5 @@ body.site { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI
   .oh-media-card-body { padding: 1.25rem; }
   .oh-page-hero { padding-block: 2.5rem 2rem; }
   .oh-article { padding-block: 2.5rem 3rem; }
+  .oh-post-body pre { margin-inline: -1rem; border-radius: 0; padding: .9rem 1rem; font-size: .8rem; }
 }

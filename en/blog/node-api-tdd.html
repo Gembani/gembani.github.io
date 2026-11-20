@@ -1,9 +1,952 @@
 <!DOCTYPE html>
-<html lang="fr">
-<meta charset="utf-8">
-<meta name="robots" content="noindex">
-<title>Page déplacée</title>
-<link rel="canonical" href="/legacy/en/blog/node-api-tdd.html">
-<meta http-equiv="refresh" content="0; url=/legacy/en/blog/node-api-tdd.html">
-<p>Cette page a été déplacée : <a href="/legacy/en/blog/node-api-tdd.html">/legacy/en/blog/node-api-tdd.html</a>.</p>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicons/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png">
+  
+  <link rel="alternate" hreflang="fr" href="https://www.gembani.com/fr/blog/le-tdd.html">
+  
+  <link rel="alternate" hreflang="en" href="https://www.gembani.com/en/blog/node-api-tdd.html">
+  
+  
+  <!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Node TDD | Nick Stock</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Node TDD" />
+<meta name="author" content="Nick Stock" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="In the node ecosystem, we haven’t been able to find an article describing the way we prefer to practice TDD internally. Here is an article describing the way we practice TDD using node" />
+<meta name="twitter:description" property="og:description" content="In the node ecosystem, we haven’t been able to find an article describing the way we prefer to practice TDD internally. Here is an article describing the way we practice TDD using node" />
+<link rel="canonical" href="https://www.gembani.com/en/blog/node-api-tdd.html" />
+<meta property="og:url" content="https://www.gembani.com/en/blog/node-api-tdd.html" />
+<meta property="og:site_name" content="Nick Stock" />
+<meta property="og:image" content="https://www.gembani.com/assets/img/node_tdd/node-tdd-thumbnail.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-06-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-06-19T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.gembani.com/assets/img/node_tdd/node-tdd-thumbnail.jpg" />
+<meta name="twitter:title" content="Node TDD" />
+<meta name="twitter:site" content="@nicholasjstock" />
+<meta name="twitter:creator" content="@Nick Stock" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nick Stock"},"dateModified":"2019-06-19T00:00:00+00:00","datePublished":"2019-06-19T00:00:00+00:00","description":"In the node ecosystem, we haven’t been able to find an article describing the way we prefer to practice TDD internally. Here is an article describing the way we practice TDD using node","headline":"Node TDD","image":"https://www.gembani.com/assets/img/node_tdd/node-tdd-thumbnail.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.gembani.com/en/blog/node-api-tdd.html"},"url":"https://www.gembani.com/en/blog/node-api-tdd.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link rel="stylesheet" href="/assets/css/site.css">
+  
+
+<!-- Suppress the HTTP Referer too, including same-origin counting endpoints. -->
+<meta name="referrer" content="no-referrer">
+<script>
+  function gembaniGoatcounterLoaded() {
+    // Published HTML may be previewed elsewhere: count only the production host.
+    var productionHost = new URL("https://www.gembani.com").hostname.replace(/^www\./, '');
+    if (location.hostname.replace(/^www\./, '') !== productionHost) return;
+
+    // count.js sends location.search separately from path. Remove it as well
+    // as referrals so campaign/contact identifiers never enter GoatCounter.
+    var getData = window.goatcounter.get_data;
+    window.goatcounter.get_data = function (vars) {
+      var data = getData(vars);
+      delete data.q;
+      return data;
+    };
+    function countVisiblePage() {
+      if (document.visibilityState && document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', countVisiblePage);
+      window.goatcounter.count();
+    }
+    document.addEventListener('visibilitychange', countVisiblePage);
+    countVisiblePage();
+  }
+</script>
+<script data-goatcounter="https://gembani.goatcounter.com/count"
+        data-goatcounter-settings="{&quot;no_onload&quot;:true,&quot;no_events&quot;:true,&quot;referrer&quot;:&quot;&quot;,&quot;path&quot;:&quot;/en/blog/node-api-tdd.html&quot;}"
+        onload="gembaniGoatcounterLoaded()" referrerpolicy="no-referrer"
+        async src="https://gc.zgo.at/count.v5.js" crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+
+
+</head>
+<body class="site">
+    <a class="oh-skip" href="#content">Skip to content</a>
+<header class="oh-header">
+  <div class="oh-container oh-header-inner">
+    <a class="oh-brand" href="/en/">Nick Stock<span>CTO &amp; technical leadership · Paris</span></a>
+    <nav class="oh-nav" aria-label="Main">
+      <a class="oh-nav-section" href="/en/#work">Working together</a>
+      <a class="oh-nav-section" href="/fr/videos/" lang="fr">Talks</a>
+      <a class="oh-nav-section" href="/en/blog/">Blog</a>
+      <a class="oh-lang" href="/fr/blog/le-tdd.html" lang="fr" hreflang="fr">Français</a>
+      <a class="oh-button oh-button-small" href="https://calendly.com/nick-stock/office-hour">Book an office hour <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="content" tabindex="-1">
+  <article class="oh-container oh-article oh-post">
+    <p class="oh-eyebrow"><a href="/en/blog/">Blog</a> · <time datetime="2019-06-19T00:00:00+00:00">19 June 2019</time></p>
+    <h1>Node TDD</h1>
+    <div class="oh-post-body">
+      <h1 id="repository">Repository</h1>
+<p>If you are experienced with TDD and just want a node example feel free to just clone the repository available <a href="https://github.com/Gembani/node_tdd/">here</a>.</p>
+
+<h1 id="intro">Intro</h1>
+<p>In the node ecosystem, we haven’t been able to find an article describing the way we prefer to practice TDD internally. In our opinion, with simple REST APIs we believe that people wrongly overly focus on UNIT testing, and sometimes forget to write END to END tests.</p>
+
+<p>We prefer to do the oposite: we start with END to END tests - and if we decide the code is complex enough, we start to write more granular tests on algorithm heavy pieces of code. Generally for basic CRUD we find the <a href="https://martinfowler.com/articles/mocksArentStubs.html">mockist</a> aproach that seems to be the most prevelent in the Nodejs ecosystem to be a bit overkill and often overly coupled to implementation details.</p>
+
+<p>That is not to say that we never use mocks… We do! just not in the context of a simple webservice.</p>
+
+<p>We want to do some TDD while creating a simple API.
+In this tutorial, we chose to use ExpressJS as a web framework, Sequelize as the ORM and a parsing middleware body-parse.</p>
+
+<p>Lets get started!</p>
+
+<h1 id="project-initialisation">Project initialisation</h1>
+
+<p>Let’s create a new folder.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir node_tdd &amp;&amp; cd node_tdd
+</code></pre></div></div>
+
+<p>Let’s initialize a new node project</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm init -y
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i express sequelize body-parser --save
+</code></pre></div></div>
+
+<p>We will use Postgres database, but you can as well use Mysql as well.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i pg
+</code></pre></div></div>
+
+<p>If the “sequelize” command is not found, install the sequelize-cli.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i -g sequelize-cli
+</code></pre></div></div>
+
+<p>To keep the project clean, we will use dotenv package in order to get the databases credentials</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install dotenv --save
+</code></pre></div></div>
+
+<p>Now, the base packages of our project are ready to be used. We can start the configuration.</p>
+
+<h1 id="sequelize-set-up">Sequelize set up</h1>
+<p>We first initialize our models and migrations folders with sequelize. This will create two new folders:</p>
+<ul>
+  <li>an empty migrations folder</li>
+  <li>a models folder with a index.js file in it.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sequelize init:models
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sequelize init:migrations
+</code></pre></div></div>
+
+<h1 id="database-creation">Database creation</h1>
+<p>We want to create two separate databases: one for our automatic testing, and one for playing around with the project. (dev and testing)
+We create 2 files in the project’s root:</p>
+<ul>
+  <li>/.env</li>
+  <li>/.env.test</li>
+</ul>
+
+<p>We will keep our databases credentials there.
+You can for example name your db <code class="language-plaintext highlighter-rouge">node_tdd</code> and you test db <code class="language-plaintext highlighter-rouge">node_tdd_test</code>
+Fill the below informations in each of these files.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DB_NAME=your_db_name
+DB_USER=your_db_username
+DB_PASSWORD=your_db_password
+DB_HOST=127.0.0.1
+DB_DIALECT=postgres
+</code></pre></div></div>
+
+<p>Create a file named <code class="language-plaintext highlighter-rouge">/config/config.js</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">||</span> <span class="dl">'</span><span class="s1">development</span><span class="dl">'</span>
+
+<span class="k">switch </span><span class="p">(</span><span class="nx">env</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="dl">'</span><span class="s1">development</span><span class="dl">'</span><span class="p">:</span>
+    <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">dotenv</span><span class="dl">'</span><span class="p">).</span><span class="nf">config</span><span class="p">({</span><span class="na">path</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nf">cwd</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/.env</span><span class="dl">'</span><span class="p">})</span>
+      <span class="k">break</span>
+  <span class="k">case</span> <span class="dl">'</span><span class="s1">test</span><span class="dl">'</span><span class="p">:</span>
+    <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">dotenv</span><span class="dl">'</span><span class="p">).</span><span class="nf">config</span><span class="p">({</span><span class="na">path</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nf">cwd</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/.env.test</span><span class="dl">'</span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">username</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DB_USER</span><span class="p">,</span>
+  <span class="na">password</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DB_PASSWORD</span><span class="p">,</span>
+  <span class="na">database</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DB_NAME</span><span class="p">,</span>
+  <span class="na">host</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DB_HOST</span><span class="p">,</span>
+  <span class="na">dialect</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DB_DIALECT</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In <code class="language-plaintext highlighter-rouge">/model/index.js</code>, replace this line</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/../config/config.json</span><span class="dl">'</span><span class="p">)[</span><span class="nx">env</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>by this one</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/../config/config</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>In this same file, we add a function in the <code class="language-plaintext highlighter-rouge">db</code> object which allows us to close the connection with the database.
+We will need this to write our tests later.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nx">db</span><span class="p">.</span><span class="nx">close</span> <span class="o">=</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">sequelize</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+<p>Let’s create our databases! It can be done manually but thanks to the infomation we provided it, Sequelize can do it for us!</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NODE_ENV=development sequelize db:create
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NODE_ENV=test sequelize db:create
+</code></pre></div></div>
+
+<p>Our databases are now created.
+Time to write some migrations. Migrations are used to automate the process of keeping your environments in sync. (testing, dev on your teams local computers + production and potentially staging)</p>
+
+<p>We want a simple database with 2 tables. Author and Post.
+Author will have multiple Posts.
+Post will belong to one Author.</p>
+
+<p>Sequelize can create the model and the associated migration with one command.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sequelize model:generate --name Author --attributes firstName:string,lastName:string
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sequelize model:generate --name Post --attributes title:string,content:text
+</code></pre></div></div>
+
+<p>Let’s get this all migrated, in both environments.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NODE_ENV=development sequelize db:migrate
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NODE_ENV=test sequelize db:migrate
+</code></pre></div></div>
+
+<p>In order to create a <code class="language-plaintext highlighter-rouge">belongs to</code> association, we have to create a migration.
+Our Post table must have a AuthorId column.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sequelize migration:create --name='add-author-id-to-posts'
+</code></pre></div></div>
+
+<p>Replace the migration file with:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+<span class="na">up</span><span class="p">:</span> <span class="p">(</span><span class="nx">queryInterface</span><span class="p">,</span> <span class="nx">Sequelize</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">queryInterface</span><span class="p">.</span><span class="nf">addColumn</span><span class="p">(</span><span class="dl">'</span><span class="s1">Posts</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">AuthorId</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="nx">Sequelize</span><span class="p">.</span><span class="nx">INTEGER</span><span class="p">,</span>
+    <span class="na">references</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">model</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Authors</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// name of Target model</span>
+    <span class="na">key</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// key in Target model that we're referencing</span>
+    <span class="p">},</span>
+  <span class="na">onUpdate</span><span class="p">:</span> <span class="dl">'</span><span class="s1">CASCADE</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">onDelete</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SET NULL</span><span class="dl">'</span><span class="p">,</span>
+  <span class="p">})</span>
+<span class="p">},</span>
+
+<span class="na">down</span><span class="p">:</span> <span class="p">(</span><span class="nx">queryInterface</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">queryInterface</span><span class="p">.</span><span class="nf">removeColumn</span><span class="p">(</span><span class="dl">'</span><span class="s1">Posts</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">AuthorId</span><span class="dl">'</span><span class="p">)</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NODE_ENV=development sequelize db:migrate
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NODE_ENV=test sequelize db:migrate
+</code></pre></div></div>
+
+<p>Let’s add the associations in model files</p>
+
+<p>In Author model:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Author</span><span class="p">.</span><span class="nx">associate</span> <span class="o">=</span> <span class="p">(</span><span class="nx">models</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">Author</span><span class="p">.</span><span class="nf">hasMany</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Post</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In Post model:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">associate</span> <span class="o">=</span> <span class="p">(</span><span class="nx">models</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">Post</span><span class="p">.</span><span class="nf">belongsTo</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Author</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Create /app.js 
+We will put our routes/controllers in this file.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">bodyParser</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">body-parser</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./models</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nf">express</span><span class="p">()</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+<span class="nx">app</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nf">urlencoded</span><span class="p">({</span>
+  <span class="na">extended</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}))</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nf">static</span><span class="p">(</span><span class="dl">'</span><span class="s1">app/public</span><span class="dl">'</span><span class="p">))</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span>
+</code></pre></div></div>
+
+<p>Create /server.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./models</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./app</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">App listening on port 3000!</span><span class="dl">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>The app is now ready. Let’s install all the packages in order to start practicing TDD.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install --save-dev jest supertest babel-cli babel-preset-env
+</code></pre></div></div>
+
+<p>Replace the test script in your <code class="language-plaintext highlighter-rouge">package.json</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"test": "jest --runInBand --forceExit spec"
+</code></pre></div></div>
+
+<p>Create a /spec folder and create a test file in it. (/spec/api.test.js)</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">supertest</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../app</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../models</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">GET /</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">response</span><span class="p">;</span>
+
+  <span class="nf">beforeEach</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
+    <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">})</span>
+
+  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>We want to clean our database before each test. To do that, we create a helper function which will handle this.
+(<code class="language-plaintext highlighter-rouge">/spec/helpers/cleanDb.js</code>)</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">cleanDb</span> <span class="o">=</span> <span class="k">async </span><span class="p">(</span><span class="nx">db</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">truncate</span><span class="p">({</span> <span class="na">cascade</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Post</span><span class="p">.</span><span class="nf">truncate</span><span class="p">({</span> <span class="na">cascade</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+<span class="p">}</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">cleanDb</span>
+</code></pre></div></div>
+
+<p>Now the helper is created, let’s use it in our spec file.
+Add this line in <code class="language-plaintext highlighter-rouge">api.test.js</code> to clean the database before and after the tests.
+Import the helper at the top of the file.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">cleanDb</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./helpers/cleanDb</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We want to clean the database before and after all tests</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="nf">afterAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Let’s launch our tests with jest.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm run test
+</code></pre></div></div>
+
+<p><img src="/assets/img/node_tdd/1.png" alt="" class="img-responsive" /></p>
+
+<p>The test received an 404 response code.
+That means that the file was not found. Let’s create a pretty basic one in <code class="language-plaintext highlighter-rouge">app.js</code> file.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nf">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello.</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/node_tdd/2.png" alt="" class="img-responsive" /></p>
+
+<p>Once the route is created, the test is green!
+Let’s add a new test block. We want a route to create an author in database.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">POST /author</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="kd">let</span> <span class="nx">response</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{};</span>
+
+  <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">John</span><span class="dl">'</span>
+    <span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Wick</span><span class="dl">'</span>
+    <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/author</span><span class="dl">'</span><span class="p">).</span><span class="nf">send</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">})</span>
+
+  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>For now we just want a positive response code. (200). But once we run the test, we get a 404 instead of 200.
+Let’s add the route.</p>
+
+<p><code class="language-plaintext highlighter-rouge">app.js</code></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/author</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nf">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">POST author</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Tests OK !</p>
+
+<p>But we want more functionalities with this route. We want to create a new author with a firstName and lastName. The route should return a json payload of this newly created author. Lets translate the above requirement into a test!</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should return a json with the new author</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">firstName</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span><span class="p">);</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">lastName</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/node_tdd/3.png" alt="" class="img-responsive" /></p>
+
+<p>The test fail.
+Let’s modify our controller to make the test pass.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/author</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">create</span><span class="p">({</span>
+    <span class="na">firstName</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span>
+    <span class="na">lastName</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">lastName</span>
+  <span class="p">}).</span><span class="nf">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+<span class="p">})</span>
+
+</code></pre></div></div>
+
+<p><img src="/assets/img/node_tdd/4.png" alt="" class="img-responsive" /></p>
+
+<p>Tests are now green !</p>
+
+<p>This verifies only half the requirement! We have nothing that verifies that the data has in fact been added to the DB (all we know from the above test is that the route returns the correct json)
+Let’s add a test which will ensure this.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should create and retrieve a post for the selected author</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">author</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">findOne</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">id</span><span class="p">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span>
+    <span class="p">}})</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">author</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">author</span><span class="p">.</span><span class="nx">firstName</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span><span class="p">)</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">author</span><span class="p">.</span><span class="nx">lastName</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span><span class="p">)</span>
+  <span class="p">});</span>
+
+</code></pre></div></div>
+
+<p><img src="/assets/img/node_tdd/5.png" alt="" class="img-responsive" /></p>
+
+<p>It passes too ! No need to modify our controller.</p>
+
+<p>Let’s do the same thing with getting all the authors. The <code class="language-plaintext highlighter-rouge">/GET authors</code> route should return all the authors in our db. Lets write the test first!</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">GET /authors</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="kd">let</span> <span class="nx">response</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{};</span>
+
+  <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">))</span>
+
+  <span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">when there is no author in database</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/authors</span><span class="dl">'</span><span class="p">).</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">})</span>
+
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should not retrieve any authors in db</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">authors</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">findAll</span><span class="p">()</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">authors</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">})</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Tests are red. Let’s create the route.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/authors</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nf">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello World!</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/node_tdd/6.png" alt="" class="img-responsive" /></p>
+
+<p>Tests OK !
+We want the response to be a void array.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should return a json with a void array</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nf">toStrictEqual</span><span class="p">([]);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Test red.
+Let’s modify our controller.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/authors</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">findAll</span><span class="p">().</span><span class="nf">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/node_tdd/7.png" alt="" class="img-responsive" /></p>
+
+<p>Tests are now green !</p>
+
+<p>The following tests will need to have some data already created.
+In order to do this we will use factories. Factories are a very useful tool to build or create objects with some automatically generated default values.
+Let’s install Factory Girl.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install factory-girl --save
+</code></pre></div></div>
+
+<p>Let’s create a factory file in <code class="language-plaintext highlighter-rouge">spec/factories/author.js</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">factoryGirl</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">factory-girl</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">adapter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">factoryGirl</span><span class="p">.</span><span class="nc">SequelizeAdapter</span><span class="p">()</span>
+<span class="nx">factory</span> <span class="o">=</span> <span class="nx">factoryGirl</span><span class="p">.</span><span class="nx">factory</span>
+<span class="nx">factory</span><span class="p">.</span><span class="nf">setAdapter</span><span class="p">(</span><span class="nx">adapter</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">Author</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../../models</span><span class="dl">'</span><span class="p">).</span><span class="nx">Author</span>
+
+<span class="nx">factory</span><span class="p">.</span><span class="nf">define</span><span class="p">(</span><span class="dl">'</span><span class="s1">author</span><span class="dl">'</span><span class="p">,</span> <span class="nx">Author</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">firstName</span><span class="p">:</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">sequence</span><span class="p">((</span><span class="nx">n</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`firstName</span><span class="p">${</span><span class="nx">n</span><span class="p">}</span><span class="s2">`</span><span class="p">),</span>
+  <span class="na">lastName</span><span class="p">:</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">sequence</span><span class="p">((</span><span class="nx">n</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`lastName</span><span class="p">${</span><span class="nx">n</span><span class="p">}</span><span class="s2">`</span><span class="p">),</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Thanks to factory.sequence, all the authors we generate using the factory will have different names. We can always override the default values if we need too.</p>
+
+<p>Let’s import the factory in the test file</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./factories/author</span><span class="dl">'</span><span class="p">).</span><span class="nx">factory</span>
+<span class="kd">const</span> <span class="nx">factory</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">factory-girl</span><span class="dl">'</span><span class="p">).</span><span class="nx">factory</span>
+</code></pre></div></div>
+
+<p>And add a test block. This time we write some tests in the case where we have some already created author in db.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">when there is one or more authors in database</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">authors</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">createMany</span><span class="p">(</span><span class="dl">'</span><span class="s1">author</span><span class="dl">'</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/authors</span><span class="dl">'</span><span class="p">).</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">})</span>
+
+  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should not retrieve any author in db</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">authorsInDatabase</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">findAll</span><span class="p">()</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">authorsInDatabase</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="p">});</span>
+  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+  <span class="p">});</span>
+  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should return a json with a void array</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">expectedBody</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="nx">authors</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span>
+        <span class="na">firstName</span><span class="p">:</span> <span class="nx">authors</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">firstName</span><span class="p">,</span>
+        <span class="na">lastName</span><span class="p">:</span> <span class="nx">authors</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">lastName</span><span class="p">,</span>
+      <span class="p">}</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nf">toContainEqual</span><span class="p">(</span><span class="nx">expectedBody</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Now we have another error. In the response body, we can see the authors but with timestamps. 
+Let’s get rid of them.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/authors</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">findAll</span><span class="p">(</span>
+    <span class="p">{</span><span class="na">attributes</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">firstName</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">lastName</span><span class="dl">'</span><span class="p">]}</span>
+  <span class="p">).</span><span class="nf">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/node_tdd/8.png" alt="" class="img-responsive" /></p>
+
+<p>And now all the tests pass !</p>
+
+<p>Let’s now create a Post factory, the same way we did with Author.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">factoryGirl</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">factory-girl</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">adapter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">factoryGirl</span><span class="p">.</span><span class="nc">SequelizeAdapter</span><span class="p">()</span>
+<span class="nx">factory</span> <span class="o">=</span> <span class="nx">factoryGirl</span><span class="p">.</span><span class="nx">factory</span>
+<span class="nx">factory</span><span class="p">.</span><span class="nf">setAdapter</span><span class="p">(</span><span class="nx">adapter</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">Post</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../../models</span><span class="dl">'</span><span class="p">).</span><span class="nx">Post</span>
+
+<span class="nx">factory</span><span class="p">.</span><span class="nf">define</span><span class="p">(</span><span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span> <span class="nx">Post</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">title</span><span class="p">:</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">sequence</span><span class="p">((</span><span class="nx">n</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`title</span><span class="p">${</span><span class="nx">n</span><span class="p">}</span><span class="s2">`</span><span class="p">),</span>
+  <span class="na">content</span><span class="p">:</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">sequence</span><span class="p">((</span><span class="nx">n</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`content</span><span class="p">${</span><span class="nx">n</span><span class="p">}</span><span class="s2">`</span><span class="p">),</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Require Post factory in test file</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./factories/post</span><span class="dl">'</span><span class="p">).</span><span class="nx">factory</span>
+</code></pre></div></div>
+
+<p>Now we can write a basic test for the new route we want to create.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">POST /post</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="kd">let</span> <span class="nx">response</span>
+  <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="kd">let</span> <span class="nx">post</span>
+  <span class="kd">let</span> <span class="nx">author</span>
+
+  <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">))</span>
+
+  <span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">The author has one or multiple posts</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">author</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="dl">'</span><span class="s1">author</span><span class="dl">'</span><span class="p">)</span>
+      <span class="nx">post</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">build</span><span class="p">(</span><span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">)</span>
+      <span class="nx">data</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">post</span><span class="p">.</span><span class="nx">title</span>
+      <span class="nx">data</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">post</span><span class="p">.</span><span class="nx">content</span>
+      <span class="nx">data</span><span class="p">.</span><span class="nx">AuthorId</span> <span class="o">=</span> <span class="nx">author</span><span class="p">.</span><span class="nx">id</span>
+      <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/post</span><span class="dl">'</span><span class="p">).</span><span class="nf">send</span><span class="p">(</span><span class="nx">data</span><span class="p">).</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">})</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>404 error!
+Go to the app.js file and create the new route.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/post</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Post</span><span class="p">.</span><span class="nf">create</span><span class="p">({</span>
+    <span class="na">title</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span>
+    <span class="na">content</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span>
+    <span class="na">AuthorId</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">AuthorId</span><span class="p">,</span>
+  <span class="p">}).</span><span class="nf">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>It passes !</p>
+
+<p>Let’s add some tests, to ensure the POST post route is working correctly.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should create and retrieve a post for the selected author</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">postsInDatabase</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Post</span><span class="p">.</span><span class="nf">findAll</span><span class="p">()</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">postsInDatabase</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">postsInDatabase</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">title</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">title</span><span class="p">)</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">postsInDatabase</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">content</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">content</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should return a json with the author</span><span class="se">\'</span><span class="s1">s posts</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">title</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">content</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">content</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">The post should belong to the selected authors</span><span class="se">\'</span><span class="s1"> posts</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">posts</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">author</span><span class="p">.</span><span class="nf">getPosts</span><span class="p">()</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">posts</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">title</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">title</span><span class="p">)</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="nx">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">content</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">content</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/node_tdd/9.png" alt="" class="img-responsive" /></p>
+
+<p>And now it’s all good ! All the functionnalities listed in this test file are working properly.</p>
+
+<p>The last often overlooked step in TDD is cleanup!
+Let’s organize our code a bit by extracting each resource’s routes/controllers to different files.</p>
+
+<p>Create a file: <code class="language-plaintext highlighter-rouge">/app/api/post.js</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/post</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Post</span><span class="p">.</span><span class="nf">create</span><span class="p">({</span>
+      <span class="na">title</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span>
+      <span class="na">content</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span>
+      <span class="na">AuthorId</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">AuthorId</span><span class="p">,</span>
+    <span class="p">}).</span><span class="nf">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Delete this piece of code from app.js and require it.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">postRoutes</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./app/api/post</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="nf">postRoutes</span><span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Do the same thing with author.</p>
+
+<p>Create a file: /app/api/author.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/author</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">create</span><span class="p">({</span>
+      <span class="na">firstName</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span>
+      <span class="na">lastName</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">lastName</span><span class="p">,</span>
+    <span class="p">}).</span><span class="nf">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">})</span>
+
+  <span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/authors</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">findAll</span><span class="p">(</span>
+      <span class="p">{</span><span class="na">attributes</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">firstName</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">lastName</span><span class="dl">'</span><span class="p">]}</span>
+    <span class="p">).</span><span class="nf">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Now your app.js file should look like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">bodyParser</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">body-parser</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./models</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">postRoutes</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./app/api/post</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">authorRoutes</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./app/api/author</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nf">express</span><span class="p">()</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+<span class="nx">app</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nf">urlencoded</span><span class="p">({</span>
+  <span class="na">extended</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}))</span>
+<span class="nx">app</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nf">static</span><span class="p">(</span><span class="dl">'</span><span class="s1">app/public</span><span class="dl">'</span><span class="p">))</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nf">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello World!</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+
+
+<span class="nf">postRoutes</span><span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span>
+<span class="nf">authorRoutes</span><span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span>
+
+</code></pre></div></div>
+
+<p>And your test file should look like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">supertest</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../app</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../models</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">cleanDb</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./helpers/cleanDb</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./factories/author</span><span class="dl">'</span><span class="p">).</span><span class="nx">factory</span>
+<span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./factories/post</span><span class="dl">'</span><span class="p">).</span><span class="nx">factory</span>
+<span class="kd">const</span> <span class="nx">factory</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">factory-girl</span><span class="dl">'</span><span class="p">).</span><span class="nx">factory</span>
+
+<span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="nf">afterAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+<span class="p">});</span>
+
+<span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">GET /</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">response</span><span class="p">;</span>
+
+  <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
+    <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">})</span>
+
+  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">POST /author</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="kd">let</span> <span class="nx">response</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Seb</span><span class="dl">'</span>
+    <span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Ceb</span><span class="dl">'</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`data = </span><span class="p">${</span><span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">)}</span><span class="s2">`</span><span class="p">)</span>
+    <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/author</span><span class="dl">'</span><span class="p">).</span><span class="nf">send</span><span class="p">(</span><span class="nx">data</span><span class="p">).</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">})</span>
+
+  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should return a json with the new author</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">firstName</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span><span class="p">);</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">lastName</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should create and retrieve a post for the selected author</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">author</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">findOne</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">id</span><span class="p">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span>
+    <span class="p">}})</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">author</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">author</span><span class="p">.</span><span class="nx">firstName</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span><span class="p">)</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">author</span><span class="p">.</span><span class="nx">lastName</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span><span class="p">)</span>
+  <span class="p">});</span>
+
+<span class="p">});</span>
+
+<span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">GET /authors</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="kd">let</span> <span class="nx">response</span>
+  <span class="kd">let</span> <span class="nx">authors</span>
+
+  <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">))</span>
+
+  <span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">when there is no author in database</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/authors</span><span class="dl">'</span><span class="p">).</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">})</span>
+
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should not retrieve any author in db</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">authors</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">findAll</span><span class="p">()</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">authors</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should return a json with a void array</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nf">toStrictEqual</span><span class="p">([]);</span>
+    <span class="p">});</span>
+  <span class="p">})</span>
+
+  <span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">when there is one or more authors in database</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">authors</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">createMany</span><span class="p">(</span><span class="dl">'</span><span class="s1">author</span><span class="dl">'</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+      <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/authors</span><span class="dl">'</span><span class="p">).</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should not retrieve any author in db</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">authorsInDatabase</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Author</span><span class="p">.</span><span class="nf">findAll</span><span class="p">()</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">authorsInDatabase</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should return a json with a void array</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+      <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">expectedBody</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="na">id</span><span class="p">:</span> <span class="nx">authors</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span>
+          <span class="na">firstName</span><span class="p">:</span> <span class="nx">authors</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">firstName</span><span class="p">,</span>
+          <span class="na">lastName</span><span class="p">:</span> <span class="nx">authors</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">lastName</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nf">toContainEqual</span><span class="p">(</span><span class="nx">expectedBody</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">})</span>
+<span class="p">});</span>
+
+<span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">POST /post</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="kd">let</span> <span class="nx">response</span>
+  <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="kd">let</span> <span class="nx">post</span>
+  <span class="kd">let</span> <span class="nx">author</span>
+
+  <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="k">await</span> <span class="nf">cleanDb</span><span class="p">(</span><span class="nx">db</span><span class="p">))</span>
+
+  <span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">The author has one or multiple posts</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">author</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="dl">'</span><span class="s1">author</span><span class="dl">'</span><span class="p">)</span>
+      <span class="nx">post</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">factory</span><span class="p">.</span><span class="nf">build</span><span class="p">(</span><span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">)</span>
+      <span class="nx">data</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">post</span><span class="p">.</span><span class="nx">title</span>
+      <span class="nx">data</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">post</span><span class="p">.</span><span class="nx">content</span>
+      <span class="nx">data</span><span class="p">.</span><span class="nx">AuthorId</span> <span class="o">=</span> <span class="nx">author</span><span class="p">.</span><span class="nx">id</span>
+      <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nf">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/post</span><span class="dl">'</span><span class="p">).</span><span class="nf">send</span><span class="p">(</span><span class="nx">data</span><span class="p">).</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should respond with a 200 status code</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should create and retrieve a post for the selected author</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">postsInDatabase</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Post</span><span class="p">.</span><span class="nf">findAll</span><span class="p">()</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">postsInDatabase</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">postsInDatabase</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">title</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">title</span><span class="p">)</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">postsInDatabase</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">content</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">content</span><span class="p">)</span>
+    <span class="p">});</span>
+    
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">It should return a json with the author</span><span class="se">\'</span><span class="s1">s posts</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">title</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">content</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">content</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nf">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">The post should belong to the selected authors</span><span class="se">\'</span><span class="s1"> posts</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">posts</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">author</span><span class="p">.</span><span class="nf">getPosts</span><span class="p">()</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">posts</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">title</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">title</span><span class="p">)</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">content</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">content</span><span class="p">)</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Run the tests one last time to check if refactoring broke anything.
+They still all pass ! We did not break anything!</p>
+
+    </div>
+    <div class="oh-actions oh-post-actions">
+      <a href="/fr/blog/le-tdd.html" lang="fr" hreflang="fr">Lire cet article en français</a>
+      <a href="/en/blog/">All articles</a>
+    </div>
+    <div class="oh-note" style="margin-top: 2.5rem;">
+      <p>Want to talk about your team? <a href="https://calendly.com/nick-stock/office-hour">Book a free office hour</a> or write to <a href="mailto:nick@gembani.com">nick@gembani.com</a>.</p>
+    </div>
+  </article>
+</main>
+<footer class="oh-footer">
+  <div class="oh-container oh-footer-inner">
+    
+    <p>Nick Stock <span aria-hidden="true">·</span> CTO &amp; technical leadership <span aria-hidden="true">·</span> Paris</p>
+    
+    <div class="oh-footer-links">
+      
+      <a href="mailto:nick@gembani.com">nick@gembani.com</a>
+      <a href="https://www.linkedin.com/in/nicholasstock/">LinkedIn <span aria-hidden="true">↗</span></a>
+    </div>
+    <p class="oh-footer-legacy">
+      
+      <a href="/legacy/en/">Archive of the Gembani Consulting site (before liquidation)</a>
+      
+    </p>
+  </div>
+</footer>
+</body>
 </html>
